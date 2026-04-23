@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { fetchPropertyById } from '../hooks/useProperties';
 import type { Property } from '../types';
 import { motion } from 'motion/react';
 import { MapPin, Bed, Ruler, Bath, Car, CheckCircle2, MessageCircle, ArrowLeft } from 'lucide-react';
-import { MiniMap } from '../components/MiniMap';
 import { geocodeAddress } from '../services/geocodingService';
+
+const MiniMap = lazy(() =>
+  import('../components/MiniMap').then(m => ({ default: m.MiniMap }))
+);
 
 const PropertyDetail = () => {
   const { id } = useParams();
@@ -208,7 +211,13 @@ const PropertyDetail = () => {
             <h3 className="text-2xl font-light mb-8 text-white border-b border-white/10 pb-4">Localização Exata</h3>
             <div className="w-full h-[400px] rounded-3xl overflow-hidden border border-white/10 relative shadow-2xl bg-white/5">
               {coords ? (
-                <MiniMap lat={coords.lat} lng={coords.lng} />
+                <Suspense fallback={
+                  <div className="w-full h-full flex items-center justify-center text-gray-500">
+                    Aproximando localização...
+                  </div>
+                }>
+                  <MiniMap lat={coords.lat} lng={coords.lng} />
+                </Suspense>
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-gray-500">
                   Aproximando localização...

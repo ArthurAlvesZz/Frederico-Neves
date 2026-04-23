@@ -1,9 +1,12 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useCallback, useRef, useEffect, lazy, Suspense } from 'react';
 import { Search as SearchIcon, ArrowRight, Bed, Ruler, LayoutGrid, MapPin, Building2, Loader2, SlidersHorizontal, Map as MapIcon, ChevronDown, Bath } from 'lucide-react';
 import { useProperties } from '../hooks/useProperties';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
-import { MapExplorerModal } from '../components/MapExplorerModal';
+
+const MapExplorerModal = lazy(() =>
+  import('../components/MapExplorerModal').then(m => ({ default: m.MapExplorerModal }))
+);
 
 function levenshteinCost(a: string, b: string): number {
   if (a.length === 0) return b.length;
@@ -95,7 +98,10 @@ const SearchPage = () => {
     return Array.from(new Set<string>(activeProps?.map(p => p.neighborhood) || []));
   }, [globalInput, properties]);
 
-  const neighborhoodPredictions = availableNeighborhoods.filter(b => fuzzyMatch(neighborhoodInput, b));
+  const neighborhoodPredictions = useMemo(
+    () => availableNeighborhoods.filter(b => fuzzyMatch(neighborhoodInput, b)),
+    [neighborhoodInput, availableNeighborhoods]
+  );
 
   const types = ['Todos', ...Array.from(new Set<string>(properties?.map(p => p.tipo) || []))];
 
@@ -115,10 +121,10 @@ const SearchPage = () => {
     });
   }, [globalInput, neighborhoodInput, filterType, properties, minPrice, maxPrice, beds, baths]);
 
-  const handleNeighborhoodSelect = (b: string) => {
+  const handleNeighborhoodSelect = useCallback((b: string) => {
     setNeighborhoodInput(b);
     setShowNeighborhoodPredictions(false);
-  }
+  }, []);
 
   return (
     <div className="pt-32 min-h-screen bg-gray-950 text-white selection:bg-[#C6A75E] selection:text-gray-950">
@@ -424,11 +430,13 @@ const SearchPage = () => {
         )}
       </section>
 
-      <MapExplorerModal 
-        isOpen={isMapOpen} 
-        onClose={() => setIsMapOpen(false)} 
-        properties={filteredProperties} 
-      />
+      <Suspense fallback={null}>
+        <MapExplorerModal
+          isOpen={isMapOpen}
+          onClose={() => setIsMapOpen(false)}
+          properties={filteredProperties}
+        />
+      </Suspense>
     </div>
   );
 };
