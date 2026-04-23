@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
@@ -8,7 +8,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const [show, setShow] = useState(true);
   const [hideForce, setHideForce] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const lastScrollYRef = useRef(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -25,12 +25,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const currentScrollY = window.scrollY;
-          if (currentScrollY > lastScrollY && currentScrollY > 50) {
+          if (currentScrollY > lastScrollYRef.current && currentScrollY > 50) {
             setShow(false);
           } else {
             setShow(true);
           }
-          setLastScrollY(currentScrollY);
+          lastScrollYRef.current = currentScrollY;
           ticking = false;
         });
         ticking = true;
@@ -38,7 +38,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-950">
@@ -48,9 +48,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           
           <Link to="/" className="flex items-center gap-3 cursor-pointer group">
             {/* Logo Icon */}
-            <img src="/logo-icon.png" alt="Frederico Neves Icon" className="h-10 w-10 object-contain group-hover:scale-105 transition-transform" />
+            <img src="/logo-icon.png" alt="Frederico Neves Icon" className="h-10 w-10 object-contain group-hover:scale-105 transition-transform" decoding="async" />
             {/* Logo Wordmark */}
-            <img src="/logo-wordmark.png" alt="Frederico Neves" className="h-6 object-contain" />
+            <img src="/logo-wordmark.png" alt="Frederico Neves" className="h-6 object-contain" decoding="async" />
           </Link>
 
           <div className="hidden lg:flex items-center gap-1">

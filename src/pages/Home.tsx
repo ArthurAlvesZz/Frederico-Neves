@@ -58,11 +58,12 @@ const Home = () => {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="flex-none w-[380px] h-[550px] relative rounded-3xl overflow-hidden group shadow-2xl border border-white/10 cursor-pointer"
               >
-                <img 
-                  src={p.image} 
+                <img
+                  src={p.image}
                   loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                  alt={p.title} 
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  alt={p.title}
                 />
                 
                 {/* Gradient Overlay for Text Readability */}
@@ -111,10 +112,11 @@ const Home = () => {
       <section className="py-32 relative overflow-hidden text-center rounded-[3rem] mx-4 md:mx-6 mb-12 bg-[#0A2540]">
         {/* Background Image Container */}
         <div className="absolute inset-0 z-0">
-          <img 
-            src="https://portalmad.com.br/wp-content/uploads/2022/08/porta-de-entrada-com-vidro-lateral-portal-madeira.jpg" 
-            alt="Porta de Luxo Madeira" 
+          <img
+            src="https://portalmad.com.br/wp-content/uploads/2022/08/porta-de-entrada-com-vidro-lateral-portal-madeira.jpg"
+            alt="Porta de Luxo Madeira"
             loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-[#0A2540]/85 backdrop-blur-[2px]" />

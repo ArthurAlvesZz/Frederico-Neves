@@ -75,6 +75,8 @@ const PropertyDetail = () => {
           src={property.image}
           alt={property.title}
           className="absolute inset-0 w-full h-full object-cover"
+          fetchpriority="high"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent" />
         
@@ -191,10 +193,12 @@ const PropertyDetail = () => {
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                       {property.images?.map((img, idx) => (
                         <a key={idx} href={img} target="_blank" rel="noopener noreferrer" className="block relative aspect-square overflow-hidden rounded-2xl group border border-white/10 bg-white/5 cursor-zoom-in">
-                           <img 
-                              src={img} 
-                              alt={`Detalhe do Imóvel ${idx + 1}`} 
+                           <img
+                              src={img}
+                              alt={`Detalhe do Imóvel ${idx + 1}`}
                               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                              loading="lazy"
+                              decoding="async"
                            />
                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                               <span className="text-white text-xs uppercase tracking-widest font-bold">Ampliar</span>

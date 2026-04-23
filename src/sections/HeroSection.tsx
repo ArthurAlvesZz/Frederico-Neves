@@ -7,10 +7,13 @@ const HeroSection = () => {
   return (
     <header className="relative min-h-screen w-full bg-[#0A2540] flex flex-col pt-[120px]">
       <div className="absolute inset-0 z-0">
-        <img 
-          src="https://images.homify.com/v1438634061/p/photo/image/792659/avare_03a.jpg" 
+        <img
+          src="https://images.homify.com/v1438634061/p/photo/image/792659/avare_03a.jpg"
           className="w-full h-full object-cover opacity-50"
           alt="Fachada Casa Alto Padrão"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
         />
         {/* Blue transparent overlay */}
         <div className="absolute inset-0 bg-[#0A2540]/60" />

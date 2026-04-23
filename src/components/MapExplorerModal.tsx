@@ -63,12 +63,18 @@ export const MapExplorerModal: React.FC<MapExplorerModalProps> = ({ isOpen, onCl
       const missing = filteredProperties.filter(p => !p.latitude && !p.longitude && !geocodedProperties[p.id]);
       if (missing.length === 0) return;
 
-      const toGeocode = missing.slice(0, 3); 
-      for (const p of toGeocode) {
-        const geo = await geocodeAddress(p.address || '', p.neighborhood, p.location);
-        if (geo) {
-          setGeocodedProperties(prev => ({...prev, [p.id]: geo}));
-        }
+      const toGeocode = missing.slice(0, 3);
+      const results = await Promise.all(
+        toGeocode.map(p =>
+          geocodeAddress(p.address || '', p.neighborhood, p.location).then(geo => ({ id: p.id, geo }))
+        )
+      );
+      const newEntries: { [key: string]: { lat: number; lng: number } } = {};
+      for (const { id, geo } of results) {
+        if (geo) newEntries[id] = geo;
+      }
+      if (Object.keys(newEntries).length > 0) {
+        setGeocodedProperties(prev => ({ ...prev, ...newEntries }));
       }
     };
 
@@ -259,7 +265,7 @@ export const MapExplorerModal: React.FC<MapExplorerModalProps> = ({ isOpen, onCl
                 className={`flex gap-4 p-3 rounded-2xl border transition-all cursor-pointer group ${hoveredPropertyId === p.id || activeProperty?.id === p.id ? 'border-[#C6A75E] bg-gray-50 shadow-lg' : 'border-gray-100 hover:border-gray-200'}`}
               >
                 <div className="w-32 h-32 rounded-xl overflow-hidden flex-shrink-0 relative">
-                  <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-transform group-hover:scale-110" />
+                  <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-transform group-hover:scale-110" loading="lazy" decoding="async" />
                   <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded text-[8px] font-bold uppercase tracking-widest border border-gray-100">
                     {p.tag}
                   </div>
@@ -336,7 +342,7 @@ export const MapExplorerModal: React.FC<MapExplorerModalProps> = ({ isOpen, onCl
               >
                 <Popup className="custom-leaflet-popup">
                   <div className="w-[180px] overflow-hidden bg-white">
-                    <img src={p.image} alt={p.title} className="w-full h-24 object-cover" />
+                    <img src={p.image} alt={p.title} className="w-full h-24 object-cover" loading="lazy" decoding="async" />
                     <div className="p-3">
                       <p className="text-[9px] font-bold text-[#C6A75E] uppercase tracking-widest">{p.neighborhood}</p>
                       <h4 className="text-xs font-bold text-gray-900 mb-2 line-clamp-1">{p.title}</h4>
@@ -367,7 +373,7 @@ export const MapExplorerModal: React.FC<MapExplorerModalProps> = ({ isOpen, onCl
                  className={`w-64 bg-white rounded-2xl p-2 shadow-2xl flex items-center gap-3 border-2 transition-all ${activeProperty?.id === p.id ? 'border-[#C6A75E]' : 'border-transparent'}`}
                >
                  <div className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
-                    <img src={p.image} className="w-full h-full object-cover" alt={p.title} />
+                    <img src={p.image} className="w-full h-full object-cover" alt={p.title} loading="lazy" decoding="async" />
                  </div>
                  <div className="flex-1 overflow-hidden">
                     <div className="text-[8px] font-bold text-[#C6A75E] uppercase tracking-widest">{p.neighborhood}</div>
