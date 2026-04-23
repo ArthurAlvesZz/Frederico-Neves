@@ -1,0 +1,142 @@
+import { Property, Testimonial } from './types';
+
+export const PROPERTIES: Property[] = [
+  {
+    id: '1',
+    neg: 'compra',
+    tipo: 'casa',
+    tag: 'Design Autoral',
+    title: 'Residência Origami',
+    neighborhood: 'Morada da Colina',
+    location: 'Uberlândia, MG',
+    price: 4500000,
+    sqft: 480,
+    beds: 4,
+    baths: 5,
+    garage: 4,
+    image: '/assets/properties/destaque-principal.jpg',
+    desc: 'Uma obra-prima da arquitetura contemporânea com linhas fluidas e integração total com a natureza.',
+    features: ['Piscina Infinita', 'Home Office', 'Energia Solar'],
+    isFeatured: true,
+    images: [],
+    videoUrl: ''
+  },
+  {
+    id: '2',
+    neg: 'compra',
+    tipo: 'apartamento',
+    tag: 'Vista Panorâmica',
+    title: 'Skyline Residence',
+    neighborhood: 'Itaim Bibi',
+    location: 'São Paulo, SP',
+    price: 12800000,
+    sqft: 320,
+    beds: 3,
+    baths: 4,
+    garage: 4,
+    image: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=800&q=80',
+    desc: 'Onde o horizonte é a sua moldura. Acabamentos em mármore italiano e automação completa.',
+    features: ['Automação', 'Varanda Gourmet', '3 Suítes'],
+    isFeatured: true,
+    images: [],
+    videoUrl: ''
+  },
+  {
+    id: '3',
+    neg: 'compra',
+    tipo: 'Villa',
+    tag: 'Frente ao Mar',
+    title: 'Villa Esmeralda',
+    neighborhood: 'Corredor da Vitória',
+    location: 'Salvador, BA',
+    price: 8500000,
+    sqft: 550,
+    beds: 5,
+    baths: 6,
+    garage: 4,
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
+    desc: 'Exclusividade e segurança com pier privativo e vista espetacular da Baía de Todos os Santos.',
+    features: ['Pier Privativo', 'Adega Climatizada', 'Segurança 24h'],
+    isFeatured: true,
+    images: [],
+    videoUrl: ''
+  },
+  {
+    id: '4',
+    neg: 'compra',
+    tipo: 'casa',
+    tag: 'Condomínio Fechado',
+    title: 'Casa Bosque',
+    neighborhood: 'Jardim Karaíba',
+    location: 'Uberlândia, MG',
+    price: 3200000,
+    sqft: 380,
+    beds: 4,
+    baths: 5,
+    garage: 3,
+    image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80',
+    desc: 'Integração perfeita entre luxo e natureza em condomínio de alto padrão da zona sul.',
+    features: ['Jardim de Inverno', 'Piscina Aquecida', 'Área de Lazer'],
+    isFeatured: true,
+    images: [],
+    videoUrl: ''
+  }
+];
+
+export const TESTIMONIALS: Testimonial[] = [
+  {
+    id: 1,
+    init: 'RV',
+    nome: 'Ricardo Valadares',
+    role: 'Comprou Mansão • Morada da Colina (UDI)',
+    data: 'Março 2024',
+    stars: 5,
+    caseTitle: 'Estruturação Patrimonial Oculta',
+    text: "O nível de confidencialidade e precisão técnica do Frederico mudou minha forma de investir. Ele não apenas encontra imóveis, mas estrutura operações com uma visão analítica cirúrgica. Negócio fechado em completo off-market.",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200&h=200"
+  },
+  {
+    id: 2,
+    init: 'HD',
+    nome: 'Helena Drummond',
+    role: 'Vendeu Cobertura • Itaim Bibi (SP)',
+    data: 'Fevereiro 2024',
+    stars: 5,
+    caseTitle: 'Liquidez com Sigilo Total',
+    text: "Moro na Suíça e precisei liquidar parte do meu portfólio. A equipe cuidou de toda a burocracia, do compliance às negociações, mantendo a discrição que minha posição exigia. Uma assessoria impecável.",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200&h=200"
+  },
+  {
+    id: 3,
+    init: 'CM',
+    nome: 'Dr. Carlos Eduardo',
+    role: 'Comprou Casa • Jardim Karaíba (UDI)',
+    data: 'Dezembro 2023',
+    stars: 5,
+    caseTitle: 'Curadoria que Salva Tempo',
+    text: "Frederico nos apresentou apenas três propriedades, todas exatamente dentro do que pedimos. Sem perda de tempo, sem turismo imobiliário. Economizou nosso fim de semana para a família.",
+    image: "https://images.unsplash.com/photo-1612349317150-e410f624c427?auto=format&fit=crop&q=80&w=200&h=200"
+  },
+  {
+    id: 4,
+    init: 'MV',
+    nome: 'Mariana Vilela',
+    role: 'Investimento Apto • Corredor da Vitória (BA)',
+    data: 'Janeiro 2024',
+    stars: 5,
+    caseTitle: 'Leitura de Mercado Implacável',
+    text: "Mais do que um consultor, ele atuou como um zelador do meu capital. A leitura dele sobre a valorização daquela região se provou exata 12 meses depois. Entende de lifestyle, mas decide com números.",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=200&h=200"
+  },
+  {
+    id: 5,
+    init: 'EM',
+    nome: 'Eduardo Montenegro',
+    role: 'Comprou Villa • Granja Marileusa (UDI)',
+    data: 'Outubro 2023',
+    stars: 5,
+    caseTitle: 'Due Diligence Impecável',
+    text: "A curadoria não é apenas estética, é jurídica. Cada imóvel apresentado já vinha com due diligence completa. Foi a aquisição imobiliária mais pacífica e livre de riscos que eu já fiz na vida.",
+    image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&q=80&w=200&h=200"
+  }
+];

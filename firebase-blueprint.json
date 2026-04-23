@@ -1,0 +1,50 @@
+{
+  "entities": {
+    "Property": {
+      "title": "Property",
+      "description": "A real estate property listed by Frederico Neves.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "desc": { "type": "string" },
+        "price": { "type": "number" },
+        "location": { "type": "string" },
+        "neighborhood": { "type": "string" },
+        "beds": { "type": "number" },
+        "baths": { "type": "number" },
+        "sqft": { "type": "number" },
+        "garage": { "type": "number" },
+        "tipo": { "type": "string" },
+        "tag": { "type": "string" },
+        "image": { "type": "string" },
+        "images": { "type": "array" },
+        "videoUrl": { "type": "string" },
+        "isUnlisted": { "type": "boolean" },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["title", "desc", "price", "location", "neighborhood", "createdAt", "updatedAt"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "An authenticated administrator.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["email", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/properties/{propertyId}": {
+      "schema": { "$ref": "#/entities/Property" },
+      "description": "Contains all active and hidden properties."
+    },
+    "/admins/{userId}": {
+      "schema": { "$ref": "#/entities/Admin" },
+      "description": "List of admin users allowed to edit the platform."
+    }
+  }
+}
